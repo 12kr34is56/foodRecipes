@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "189876804244",
+    "project_id": "yum-hub",
+    "storage_bucket": "yum-hub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189876804244:android:e84f280efec359b63ab281",
+        "android_client_info": {
+          "package_name": "krishna.com.food_recipes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIt4deB-1BoqA4SGMvotdp-lbWwqWjAS4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
