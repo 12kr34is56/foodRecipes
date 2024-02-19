@@ -2,6 +2,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:food_recipes/data/spoonacular_API.dart';
+import 'package:food_recipes/model/FoodModel.dart';
 import 'package:food_recipes/model/RecipeModels.dart';
 import 'package:food_recipes/model/food_energy.dart';
 import 'package:food_recipes/presentation/screens/home_screen/cuisine_screen/nutrition_screen.dart';
@@ -11,15 +12,10 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'dart:developer' as dev;
 
 class DishScreen extends StatefulWidget {
-  const DishScreen(
-      {super.key,
-      required this.dish,
-      required this.summary,
-      required this.foodEnergy});
+  const DishScreen({super.key, required this.dish});
 
-  final FoodUser dish;
-  final FoodSummary summary;
-  final FoodEnergy foodEnergy;
+  final Results dish;
+
 
   @override
   State<DishScreen> createState() => _DishScreenState();
@@ -57,8 +53,8 @@ class _DishScreenState extends State<DishScreen>
             );
           } else {
             final List<RecipeModels> recipe = snapshot.data!;
-            int number = SpoonacularApi.calculateTotalIngredients(recipe);
-            dynamic time = SpoonacularApi.calculateTotalTime(recipe);
+
+            dynamic time = widget.dish.readyInMinutes;
             if (time >= 60) {
               time = time / 60;
             }
@@ -94,7 +90,7 @@ class _DishScreenState extends State<DishScreen>
                     //summary
                     Positioned(
                       top: 200,
-                      child: FoodSummaryWidget(summary: widget.summary),
+                      child: FoodSummaryWidget(summary: SpoonacularApi.removeHtmlTags(widget.dish.summary!)),
                     ),
 
                     //upper divider
@@ -125,9 +121,7 @@ class _DishScreenState extends State<DishScreen>
                             Column(
                               children: [
                                 Text("Ingredients"),
-                                Text(SpoonacularApi.calculateTotalIngredients(
-                                        recipe)
-                                    .toString())
+                                Text(widget.dish.nutrition!.ingredients!.length.toString())
                               ],
                             )
                           ],
@@ -197,40 +191,11 @@ class _DishScreenState extends State<DishScreen>
                           SizedBox(
                             width: 8,
                           ),
-                          FutureBuilder(
-                            future: SpoonacularApi.getFoodEnergy(
-                                dishName: widget.summary.title),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.none) {
-                                return Text("No Energy");
-                              } else if (snapshot.hasError) {
-                                return Text("Error: ${snapshot.error}");
-                              } else {
-                                var data = snapshot.data;
-
-                                if (data is FoodEnergy) {
-                                  // Assuming you have the necessary logic to retrieve the actual value
-                                  var energyValue =
-                                      widget.foodEnergy.calories?.value ??
-                                          "N/A";
-
-                                  return Column(
-                                    children: [
-                                      Text("Energy"),
-                                      Text(energyValue.toString()),
-                                    ],
-                                  );
-                                } else {
-                                  return Column(
-                                    children: [
-                                      Text("Energy"),
-                                      Text("N/A"),
-                                    ],
-                                  );
-                                }
-                              }
-                            },
+                          Column(
+                            children: [
+                              Text("Energy"),
+                              Text(widget.dish.nutrition!.nutrients![0].amount.toString()),
+                            ],
                           )
                         ],
                       ),
@@ -261,7 +226,7 @@ class _DishScreenState extends State<DishScreen>
                     Positioned(
                       top: height,
                       child: YoutubeVideoWidget(
-                        summary: widget.summary,
+                        title: widget.dish.title!,
                         height: height,
                         width: width,
                       ),
@@ -272,13 +237,13 @@ class _DishScreenState extends State<DishScreen>
                       child: GestureDetector(
                         onTap: () async {
                           await SpoonacularApi.getNutritionOfDish(
-                                  dishName: widget.summary.title)
+                                  dishName: widget.dish.title!)
                               .then(
                             (value) => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    NutritionScreen(nutrition: value,dish: widget.dish),
+                                builder: (context) => NutritionScreen(
+                                    nutrition: value, dish: widget.dish),
                               ),
                             ),
                           );

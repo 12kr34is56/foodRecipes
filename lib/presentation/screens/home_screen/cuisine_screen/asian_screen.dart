@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipes/data/spoonacular_API.dart';
+import 'package:food_recipes/model/FoodModel.dart';
 import 'package:food_recipes/presentation/screens/home_screen/cuisine_screen/indian_screen.dart';
 import 'package:food_recipes/presentation/widgets/food_widget/dish_container.dart';
 
 class AsianScreen extends StatelessWidget {
   const AsianScreen({super.key, required this.foodUser});
-  final List<FoodUser> foodUser;
+  final List<Results> foodUser;
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipes/data/spoonacular_API.dart';
+import 'package:food_recipes/model/FoodModel.dart';
 import 'package:food_recipes/model/nutrition_model.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -8,7 +9,7 @@ class NutritionScreen extends StatelessWidget {
       {super.key, required this.nutrition, required this.dish});
 
   final NutritionModel nutrition;
-  final FoodUser dish;
+  final Results dish;
 
   @override
   Widget build(BuildContext context) {

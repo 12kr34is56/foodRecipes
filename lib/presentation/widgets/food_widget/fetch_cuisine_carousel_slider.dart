@@ -22,12 +22,12 @@ class FetchCuisineCarouselSliderCard extends StatelessWidget {
           width: width,
           text: "Indian",
           onTap: () {
-            SpoonacularApi.getCuisineFood(cuisine: 'indian').then((value) {
+            SpoonacularApi.getFoodData(cuisine: 'indian').then((value) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => IndianScreen(
-                    foodUser: value,
+                    foodUser: value.results!,
                   ),
                 ),
               );
@@ -39,12 +39,12 @@ class FetchCuisineCarouselSliderCard extends StatelessWidget {
             width: width,
             text: "French",
             onTap: () {
-              SpoonacularApi.getCuisineFood(cuisine: 'French').then((value) {
+              SpoonacularApi.getFoodData(cuisine: 'French').then((value) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => FrenchScreen(
-                      foodUser: value,
+                      foodUser: value.results!,
                     ),
                   ),
                 );
@@ -52,12 +52,12 @@ class FetchCuisineCarouselSliderCard extends StatelessWidget {
             }),
         CuisineContainer(
             height: height, width: width, text: "Asian", onTap: () {
-          SpoonacularApi.getCuisineFood(cuisine: 'Asian').then((value) {
+          SpoonacularApi.getFoodData(cuisine: 'Asian').then((value) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => AsianScreen(
-                  foodUser: value,
+                  foodUser: value.results!,
                 ),
               ),
             );
@@ -65,12 +65,12 @@ class FetchCuisineCarouselSliderCard extends StatelessWidget {
         }),
         CuisineContainer(
             height: height, width: width, text: "German", onTap: () {
-          SpoonacularApi.getCuisineFood(cuisine: 'German').then((value) {
+          SpoonacularApi.getFoodData(cuisine: 'German').then((value) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => GermanScreen(
-                  foodUser: value,
+                  foodUser: value.results!,
                 ),
               ),
             );
@@ -78,12 +78,12 @@ class FetchCuisineCarouselSliderCard extends StatelessWidget {
         }),
         CuisineContainer(
             height: height, width: width, text: "Mexican", onTap: () {
-          SpoonacularApi.getCuisineFood(cuisine: 'Mexican').then((value) {
+          SpoonacularApi.getFoodData(cuisine: 'Mexican').then((value) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => MexicanScreen(
-                  foodUser: value,
+                  foodUser: value.results!,
                 ),
               ),
             );
@@ -91,12 +91,12 @@ class FetchCuisineCarouselSliderCard extends StatelessWidget {
         }),
         CuisineContainer(
             height: height, width: width, text: "Caribbean", onTap: () {
-          SpoonacularApi.getCuisineFood(cuisine: 'Caribbean').then((value) {
+          SpoonacularApi.getFoodData(cuisine: 'Caribbean').then((value) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => CaribbeanScreen(
-                  foodUser: value,
+                  foodUser: value.results!,
                 ),
               ),
             );
@@ -104,12 +104,12 @@ class FetchCuisineCarouselSliderCard extends StatelessWidget {
         }),
         CuisineContainer(
             height: height, width: width, text: "Italian", onTap: () {
-          SpoonacularApi.getCuisineFood(cuisine: 'Italian').then((value) {
+          SpoonacularApi.getFoodData(cuisine: 'Italian').then((value) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => ItalianScreen(
-                  foodUser: value,
+                  foodUser: value.results!,
                 ),
               ),
             );
@@ -117,12 +117,12 @@ class FetchCuisineCarouselSliderCard extends StatelessWidget {
         }),
         CuisineContainer(
             height: height, width: width, text: "Korean", onTap: () {
-          SpoonacularApi.getCuisineFood(cuisine: 'Korean').then((value) {
+          SpoonacularApi.getFoodData(cuisine: 'Korean').then((value) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => KoreanScreen(
-                  foodUser: value,
+                  foodUser: value.results!,
                 ),
               ),
             );
@@ -130,12 +130,12 @@ class FetchCuisineCarouselSliderCard extends StatelessWidget {
         }),
         CuisineContainer(
             height: height, width: width, text: "European", onTap: () {
-          SpoonacularApi.getCuisineFood(cuisine: 'European').then((value) {
+          SpoonacularApi.getFoodData(cuisine: 'European').then((value) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => EuropeanScreen(
-                  foodUser: value,
+                  foodUser: value.results!,
                 ),
               ),
             );
@@ -143,12 +143,12 @@ class FetchCuisineCarouselSliderCard extends StatelessWidget {
         }),
         CuisineContainer(
             height: height, width: width, text: "Japanese", onTap: () {
-          SpoonacularApi.getCuisineFood(cuisine: 'Japanese').then((value) {
+          SpoonacularApi.getFoodData(cuisine: 'Japanese').then((value) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => JapaneseScreen(
-                  foodUser: value,
+                  foodUser: value.results!,
                 ),
               ),
             );

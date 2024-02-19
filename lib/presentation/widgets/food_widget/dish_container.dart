@@ -1,6 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_recipes/data/spoonacular_API.dart';
+import 'package:food_recipes/model/FoodModel.dart';
 import 'package:food_recipes/presentation/screens/home_screen/dish_screen.dart';
 
 class DishContainer extends StatelessWidget {
@@ -10,7 +11,7 @@ class DishContainer extends StatelessWidget {
     required this.index,
   });
 
-  final List<FoodUser> foodUser;
+  final List<Results> foodUser;
   final int index;
 
   @override
@@ -20,21 +21,13 @@ class DishContainer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
       child: GestureDetector(
         onTap: () async {
-          await SpoonacularApi.getFoodSummary(data.id!).then(
-                (value) async {
-              final foodEnergy =
-              await SpoonacularApi.getFoodEnergy(dishName: data.title!);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DishScreen(
-                    dish: foodUser[index],
-                    summary: value,
-                    foodEnergy: foodEnergy,
-                  ),
-                ),
-              );
-            },
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DishScreen(
+                dish: foodUser[index],
+              ),
+            ),
           );
         },
         child: Stack(

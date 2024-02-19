@@ -7,6 +7,8 @@ import 'package:food_recipes/presentation/widgets/food_widget/fetch_image_carous
 import 'package:food_recipes/presentation/widgets/food_widget/food_drawer.dart';
 import 'package:food_recipes/presentation/widgets/food_widget/ingredients_search_box.dart';
 
+import '../../widgets/food_widget/option_name.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -19,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    SpoonacularApi.getFood();
+    // SpoonacularApi.getFood();
     // SpoonacularApi.getGeneratedDish(dish: ['tomato', 'onion', 'garlic']);
   }
 
@@ -67,62 +69,106 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 5,
                 ),
                 //vegetarian food
-                Padding(
-                  padding: EdgeInsets.only(left: 15.0, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Vegetarian Food",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w800),
-                      ),
-                      TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "View All",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w800),
-                          )),
-                    ],
-                  ),
+                const OptionNames(
+                  name: "Vegetarian",
                 ),
                 //space
                 const SizedBox(
                   height: 15,
                 ),
-                FetchVegCarouselSliderCard(width: width, height: height),
+                FetchDietCarouselSliderCard(
+                  width: width,
+                  height: height,
+                  name: 'Vegetarian',
+                ),
                 //Gulten Free food
 
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
 
-                Padding(
-                  padding: EdgeInsets.only(left: 15.0, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Gluten Food",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w800),
-                      ),
-                      TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "View All",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w800),
-                          )),
-                    ],
-                  ),
+                const OptionNames(
+                  name: "Gluten Free",
                 ),
                 //space
                 const SizedBox(
                   height: 15,
                 ),
-                FetchGlutenFreeCarouselSliderCard(width: width, height: height),
+                FetchDietCarouselSliderCard(
+                  width: width,
+                  height: height,
+                  name: 'Gluten Free',
+                ),
+
+                const SizedBox(
+                  height: 10,
+                ),
+
+                const OptionNames(
+                  name: "Snack Food",
+                ),
+                //space
+                const SizedBox(
+                  height: 15,
+                ),
+                FetchTypeCarouselSliderCard(
+                  width: width,
+                  height: height,
+                  name: 'snack Food',
+                ),
+
+                const OptionNames(
+                  name: "breakfast",
+                ),
+                //space
+                const SizedBox(
+                  height: 15,
+                ),
+                FetchTypeCarouselSliderCard(
+                  width: width,
+                  height: height,
+                  name: 'breakfast',
+                ),
+
+                const OptionNames(
+                  name: "salad",
+                ),
+                //space
+                const SizedBox(
+                  height: 15,
+                ),
+                FetchTypeCarouselSliderCard(
+                  width: width,
+                  height: height,
+                  name: 'salad',
+                ),
+
+                const OptionNames(
+                  name: "main course",
+                ),
+                //space
+                const SizedBox(
+                  height: 15,
+                ),
+                FetchTypeCarouselSliderCard(
+                  width: width,
+                  height: height,
+                  name: 'main course',
+                ),
+
+                const OptionNames(
+                  name: "dessert",
+                ),
+                //space
+                const SizedBox(
+                  height: 15,
+                ),
+                FetchTypeCarouselSliderCard(
+                  width: width,
+                  height: height,
+                  name: 'dessert',
+                ),
+
                 //todo create the bottom navigation bar
               ],
             ),

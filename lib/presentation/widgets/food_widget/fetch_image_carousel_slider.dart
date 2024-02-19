@@ -1,23 +1,27 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:food_recipes/data/spoonacular_API.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:food_recipes/presentation/screens/home_screen/dish_screen.dart';
+import 'package:food_recipes/presentation/widgets/food_widget/fetch_image.dart';
 
-class FetchVegCarouselSliderCard extends StatelessWidget {
-  const FetchVegCarouselSliderCard({
+import 'carousel_shimmer_effect.dart';
+
+class FetchDietCarouselSliderCard extends StatelessWidget {
+  const FetchDietCarouselSliderCard({
     super.key,
     required this.width,
     required this.height,
+    required this.name,
   });
 
   final double width;
   final double height;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: SpoonacularApi.getVegetarianFood(),
+      future: SpoonacularApi.getDietFood(diet: name),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.none) {
           return const Center(child: Text("No data"));
@@ -40,41 +44,51 @@ class FetchVegCarouselSliderCard extends StatelessWidget {
               itemBuilder: (BuildContext context, itemIndex, pageViewIndex) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    child: Stack(
-                      children: [
-                        FoodImage(
-                            width: width,
-                            height: height,
-                            image: snapshot.data![itemIndex].image!),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  backgroundBlendMode: BlendMode.softLight),
-                              height: height * 0.08,
+                  child: GestureDetector(
+                    onTap: () {
+                      SpoonacularApi.getFoodData(name: name).then((value) =>
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DishScreen(
+                                      dish: value.results![itemIndex]))));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Stack(
+                        children: [
+                          FoodImage(
                               width: width,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      snapshot.data![itemIndex].title!,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600),
-                                      textAlign: TextAlign.center,
+                              height: height,
+                              image: snapshot.data![itemIndex].image!),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    backgroundBlendMode: BlendMode.softLight),
+                                height: height * 0.08,
+                                width: width,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        snapshot.data![itemIndex].title!,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              )),
-                        ),
-                      ],
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -96,20 +110,22 @@ class FetchVegCarouselSliderCard extends StatelessWidget {
   }
 }
 
-class FetchGlutenFreeCarouselSliderCard extends StatelessWidget {
-  const FetchGlutenFreeCarouselSliderCard({
+class FetchTypeCarouselSliderCard extends StatelessWidget {
+  const FetchTypeCarouselSliderCard({
     super.key,
     required this.width,
     required this.height,
+    required this.name,
   });
 
   final double width;
   final double height;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: SpoonacularApi.getGlutenFreeFood(),
+      future: SpoonacularApi.getTypeFood(type: name),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.none) {
           return const Center(child: Text("No data"));
@@ -132,41 +148,51 @@ class FetchGlutenFreeCarouselSliderCard extends StatelessWidget {
               itemBuilder: (BuildContext context, itemIndex, pageViewIndex) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    child: Stack(
-                      children: [
-                        FoodImage(
-                            width: width,
-                            height: height,
-                            image: snapshot.data![itemIndex].image!),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  backgroundBlendMode: BlendMode.softLight),
-                              height: height * 0.08,
+                  child: GestureDetector(
+                    onTap: () {
+                      SpoonacularApi.getFoodData(name: name).then((value) =>
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DishScreen(
+                                      dish: value.results![itemIndex]))));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Stack(
+                        children: [
+                          FoodImage(
                               width: width,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      snapshot.data![itemIndex].title!,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600),
-                                      textAlign: TextAlign.center,
+                              height: height,
+                              image: snapshot.data![itemIndex].image!),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    backgroundBlendMode: BlendMode.softLight),
+                                height: height * 0.08,
+                                width: width,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        snapshot.data![itemIndex].title!,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              )),
-                        ),
-                      ],
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -184,82 +210,6 @@ class FetchGlutenFreeCarouselSliderCard extends StatelessWidget {
               ));
         }
       },
-    );
-  }
-}
-
-class CarouselShimmerEffect extends StatelessWidget {
-  const CarouselShimmerEffect({
-    super.key,
-    required this.width,
-    required this.height,
-  });
-
-  final double width;
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    return CarouselSlider(
-      items: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SizedBox(
-            width: width * 0.75,
-            height: height * 0.23,
-            child: Shimmer.fromColors(
-              baseColor: Color(0xffc7c7c7),
-              highlightColor: Colors.white,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(12)),
-              ),
-            ),
-          ),
-        ),
-
-      ],
-      options: CarouselOptions(
-        height: height * 0.25,
-        viewportFraction: 0.8,
-        enableInfiniteScroll: true,
-        autoPlay: true,
-        autoPlayInterval: Duration(seconds: 3),
-        autoPlayAnimationDuration: Duration(milliseconds: 800),
-        autoPlayCurve: Curves.fastOutSlowIn,
-        enlargeFactor: 0.3,
-        scrollDirection: Axis.horizontal,
-      ),
-    );
-  }
-}
-
-class FoodImage extends StatelessWidget {
-  const FoodImage(
-      {super.key,
-      required this.height,
-      required this.width,
-      required this.image});
-
-  final double height;
-  final double width;
-  final String image;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: CachedNetworkImage(
-          fit: BoxFit.cover,
-          width: width,
-          height: height,
-          imageUrl: image,
-          progressIndicatorBuilder: (BuildContext, String, DownloadProgress) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }),
     );
   }
 }

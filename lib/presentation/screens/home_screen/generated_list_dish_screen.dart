@@ -39,17 +39,14 @@ class GeneratedListDishScreen extends StatelessWidget {
               child: GestureDetector(
                 onTap: () async {
                   try {
-                    final foodUser = await SpoonacularApi.getFood(name: dishList[index].title!);
-                    final foodEnergy = await SpoonacularApi.getFoodEnergy(dishName: dishList[index].title!);
-                    final foodSummary = await SpoonacularApi.getFoodSummary(dishList[index].id!);
+                    final foodUser = await SpoonacularApi.getFoodData(name: dishList[index].title!);
+                    // final foodSummary = await SpoonacularApi.getFoodSummary(dishList[index].id!);
 
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => DishScreen(
-                          dish: foodUser[0],
-                          summary: foodSummary,
-                          foodEnergy: foodEnergy,
+                          dish: foodUser.results![0],
                         ),
                       ),
                     );

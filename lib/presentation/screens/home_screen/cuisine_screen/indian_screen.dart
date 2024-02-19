@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:food_recipes/data/spoonacular_API.dart';
 import 'package:food_recipes/presentation/widgets/food_widget/dish_container.dart';
 
+import '../../../../model/FoodModel.dart';
+
 class IndianScreen extends StatelessWidget {
   IndianScreen({super.key, required this.foodUser});
 
-  final List<FoodUser> foodUser;
+  final List<Results> foodUser;
 
   @override
   Widget build(BuildContext context) {

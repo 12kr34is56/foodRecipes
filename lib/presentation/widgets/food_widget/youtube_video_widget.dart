@@ -7,17 +7,17 @@ class YoutubeVideoWidget extends StatelessWidget {
     super.key,
     required this.height,
     required this.width,
-    required this.summary,
+    required this.title,
   });
 
-  final FoodSummary summary;
+  final String title;
   final double height;
   final double width;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: SpoonacularApi.getDishVideo(dishName: summary.title),
+      future: SpoonacularApi.getDishVideo(dishName: title),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           // Handle error more gracefully, log or display specific error message.

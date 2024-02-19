@@ -7,7 +7,7 @@ class FoodSummaryWidget extends StatelessWidget {
     required this.summary,
   });
 
-  final FoodSummary summary;
+  final String summary;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class FoodSummaryWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
             child: Text(
-              summary.summary,
+              summary,
               style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
           ),
