@@ -125,7 +125,7 @@ class FetchTypeCarouselSliderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: SpoonacularApi.getTypeFood(type: name),
+      future: SpoonacularApi.getTypeFood(type: name,maxReadyTime: 20.toString()),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.none) {
           return const Center(child: Text("No data"));

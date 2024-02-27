@@ -55,7 +55,9 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   fancy_shimmer_image: ^2.0.3
   simple_chips_input: ^1.2.0
-
+  pie_chart: ^5.4.0
+  geolocator: ^10.1.0
+  image_picker: ^1.0.7
 dev_dependencies:
   flutter_test:
     sdk: flutter

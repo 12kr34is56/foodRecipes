@@ -9,7 +9,7 @@ class LoginAuth {
   static final User? user = FirebaseAuth.instance.currentUser;
 
   //sign up
-  static Future<UserCredential> signUp(String email, String password) async {
+  static Future<UserCredential> signUp({String email = "", String password = ""}) async {
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -30,7 +30,7 @@ class LoginAuth {
   }
 
   //sign in
-  static Future<UserCredential> signIn(String email, String password) async {
+  static Future<UserCredential> signIn({required String email,required String password}) async {
     try {
       final credential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -61,7 +61,7 @@ class LoginAuth {
 
   //update User
   static Future<void> updateUser(
-      String name, String email, String image) async {
+  {String name = "", String email = "", String image = ""}) async {
     try {
       await user!.updateDisplayName(name);
       await user!.updateEmail(email);
@@ -72,7 +72,7 @@ class LoginAuth {
   }
 
   //password reset
-  static Future<void> forgotPassword(String email) async {
+  static Future<void> forgotPassword({required String email}) async {
     try {
       await auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {

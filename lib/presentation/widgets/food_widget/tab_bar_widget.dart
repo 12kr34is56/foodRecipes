@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipes/model/FoodModel.dart';
 import 'package:food_recipes/model/RecipeModels.dart';
 
 class TabBarWidget extends StatelessWidget {
@@ -11,7 +12,7 @@ class TabBarWidget extends StatelessWidget {
 
   final TabController _tabController;
   final double height;
-  final RecipeModels currentRecipe;
+  final AnalyzedInstructions currentRecipe;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,9 @@ class TabBarWidget extends StatelessWidget {
         child: Column(
           children: [
             TabBar(
+              indicatorColor: Colors.pink,
+              indicatorSize: TabBarIndicatorSize.label,
+              labelColor: Colors.pink,
               controller: _tabController,
               tabs: [
                 Tab(
@@ -89,7 +93,7 @@ class TabBarWidget extends StatelessWidget {
                                                 borderRadius:
                                                     BorderRadius.circular(8),
                                                 color:
-                                                    Colors.pink.withOpacity(0.1)),
+                                                    Colors.white.withOpacity(0.5)),
                                             child: Center(
                                               child: Text(
                                                 currentIngredient.name!,
@@ -126,7 +130,12 @@ class TabBarWidget extends StatelessWidget {
                               ),
                             ),
 
-                            Divider(), // Add a divider between steps
+                            Divider(
+                              endIndent: 20,
+                              indent: 20,
+                              thickness: 2,
+                              color: Colors.pink,
+                            ), // Add a divider between steps
                           ],
                         );
                       },

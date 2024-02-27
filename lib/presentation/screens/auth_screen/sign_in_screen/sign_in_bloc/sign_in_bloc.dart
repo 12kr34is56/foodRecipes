@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:food_recipes/data/login_auth_api.dart';
-import 'package:food_recipes/data/repository/authentication_repository/authenticate_repository.dart';
 import 'package:food_recipes/domain/repository/authentication_repository/authentication_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:food_recipes/domain/usecases/usecases.dart';

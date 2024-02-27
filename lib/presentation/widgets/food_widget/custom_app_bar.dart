@@ -71,10 +71,13 @@ class CustomAppBar extends StatelessWidget {
                       style: TextStylesT.kHomeTitleStyle,
                     ),
                   )
-                : Text(
-                    'Yum Hub',
-                    style: TextStylesT.kHomeTitleStyle2,
-                  ),
+                : Padding(
+                  padding: EdgeInsets.only(left: width*0.23),
+                  child: Text(
+                      'Yum Hub',
+                      style: TextStylesT.kHomeTitleStyle2,
+                    ),
+                ),
             background: Image.asset(
               'assets/images/t4.jpg',
               fit: BoxFit.cover,

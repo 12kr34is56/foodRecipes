@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipes/core/core.dart';
+import 'package:food_recipes/data/spoonacular_API.dart';
+import 'package:food_recipes/presentation/screens/home_screen/drawer_feature/amount_convert.dart';
+import 'package:food_recipes/presentation/screens/home_screen/drawer_feature/random_food_trivia.dart';
+import 'package:food_recipes/presentation/widgets/food_widget/find_the_nutrition.dart';
+import '../../screens/home_screen/drawer_feature/get_ingredient_substitute.dart';
+import '../../screens/home_screen/drawer_feature/random_food_joke.dart';
 
 class FoodDrawer extends StatelessWidget {
   const FoodDrawer({
@@ -49,43 +55,68 @@ class FoodDrawer extends StatelessWidget {
                 children: [
                   FeatureTile(
                     name: "Convert Amount",
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AmountConvert()));
+                    },
                     icon: Image.asset('assets/icons/coffee-cup.png'),
                   ),
-                  FeatureTile(
-                    name: "Random Recipe",
-                    onTap: () {},
-                    icon: Image.asset('assets/icons/surprise-box.png'),
-                  ),
+                  // FeatureTile(
+                  //   name: "Random Recipe",
+                  //   onTap: () {},
+                  //   icon: Image.asset('assets/icons/surprise-box.png'),
+                  // ),
                   FeatureTile(
                     name: "Guess nutrient by dish ",
-                    onTap: () {},
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return FindTheNutrition();
+                          }).then((value) => Navigator.pop(context));
+                    },
                     icon: Image.asset('assets/icons/thinker.png'),
                   ),
                   FeatureTile(
                     name: "get ingredient substitute",
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const GetIngredientsSubstitute()));
+                    },
                     icon: Image.asset('assets/icons/shuffle.png'),
                   ),
                   FeatureTile(
-                    name: "get Meal plan",
-                    onTap: () {},
+                    name: "Random Food Joke",
+                    onTap: () {
+                      SpoonacularApi.getRandomJokes().then((value) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RandomFoodJoke(
+                                      name: value,
+                                    )));
+                      });
+                    },
                     icon: Image.asset('assets/icons/medical.png'),
                   ),
                   FeatureTile(
-                    name: "Generate Meal Day",
-                    onTap: () {},
-                    icon: Image.asset('assets/icons/add.png'),
-                  ),
-                  FeatureTile(
-                    name: "Wine recommendation",
-                    onTap: () {},
-                    icon: Image.asset('assets/icons/like.png'),
-                  ),
-                  FeatureTile(
-                    name: "Quick Answer",
-                    onTap: () {},
-                    icon: Image.asset('assets/icons/response.png'),
+                    name: "Random Food Trivia",
+                    onTap: () {
+                      SpoonacularApi.getRandomJokes().then((value) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RandomFoodTrivia(
+                                      name: value,
+                                    )));
+                      });
+                    },
+                    icon: Image.asset('assets/icons/medical.png'),
                   ),
                 ],
               ),
@@ -96,42 +127,6 @@ class FoodDrawer extends StatelessWidget {
     );
   }
 }
-
-// FeatureTile(
-//   name: "Random Recipe",
-//   onTap: () {},
-//   icon: Image.asset('assets/icons/surprise-box.png'),
-// ),
-// FeatureTile(
-//   name: "Guess nutrient by dish ",
-//   onTap: () {},
-//   icon: Image.asset('assets/icons/thinker.png'),
-// ),
-// FeatureTile(
-//   name: "get ingredient substitute",
-//   onTap: () {},
-//   icon: Image.asset('assets/icons/shuffle.png'),
-// ),
-// FeatureTile(
-//   name: "get Meal plan",
-//   onTap: () {},
-//   icon: Image.asset('assets/icons/medical.png'),
-// ),
-// FeatureTile(
-//   name: "Generate Meal Day",
-//   onTap: () {},
-//   icon: Image.asset('assets/icons/add.png'),
-// ),
-// FeatureTile(
-//   name: "Wine recommendation",
-//   onTap: () {},
-//   icon: Image.asset('assets/icons/like.png'),
-// ),
-// FeatureTile(
-//   name: "Quick Answer",
-//   onTap: () {},
-//   icon: Image.asset('assets/icons/response.png'),
-// ),
 
 class FeatureTile extends StatelessWidget {
   const FeatureTile(
@@ -144,6 +139,8 @@ class FeatureTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      splashColor: Colors.green,
+      selectedColor: Colors.green,
       leading: SizedBox(height: 40, width: 44, child: icon),
       title: Text(
         name,

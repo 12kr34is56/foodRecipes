@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_recipes/core/core.dart';
+import 'package:food_recipes/presentation/screens/auth_screen/sign_in_screen/sign_in_screen.dart';
 import 'package:food_recipes/presentation/screens/auth_screen/sign_up_screen/bloc/sign_up_bloc.dart';
+import 'package:food_recipes/presentation/screens/home_screen/mainScreen.dart';
 import 'package:food_recipes/presentation/widgets/widget.dart';
 import 'package:go_router/go_router.dart';
 
@@ -165,7 +167,7 @@ class SignUpScreen extends StatelessWidget {
                               BlocConsumer<SignUpBloc, SignUpState>(
                                 listener: (context, state) {
                                   state.isSignUpSuccessful
-                                      ? context.go('/home')
+                                      ? Navigator.push(context, MaterialPageRoute(builder: (context) => const MainScreen()))
                                       : null;
                                 },
                                 builder: (context, state) {
@@ -223,7 +225,11 @@ class SignUpScreen extends StatelessWidget {
                                   child: CustomButton2(
                                     text: "Login",
                                     onTap: () {
-                                      context.go('/signIn');
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const SignInScreen()));
                                     },
                                   )),
                             ],

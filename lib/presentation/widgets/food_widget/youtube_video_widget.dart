@@ -32,9 +32,8 @@ class YoutubeVideoWidget extends StatelessWidget {
                   border: Border.all(color: Colors.pink, width: 1.2)),
               height: height * 0.22,
               width: width * 0.93,
-              child: Center(child: Text("No Video Available")));
+              child: Center(child: Icon(Icons.error, color: Colors.pink)));
         } else {
-          print("hhelllo${snapshot.data!.totalResults}");
           return SizedBox(
             width: width * 0.9,
             child: Column(

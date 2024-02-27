@@ -29,6 +29,7 @@ class _IngredientsSearchBoxState extends State<IngredientsSearchBox> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: Container(
+        height: 200,
         decoration: BoxDecoration(
           color: Colors.pink.withOpacity(0.2),
           borderRadius: BorderRadius.circular(12),
@@ -45,6 +46,7 @@ class _IngredientsSearchBoxState extends State<IngredientsSearchBox> {
           shrinkWrap: true,
           children: [
             Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text("Generate a dish from the ingredients you have",
                     style: TextStyle(

@@ -1,6 +1,5 @@
-import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:food_recipes/data/spoonacular_API.dart';
+import 'package:food_recipes/presentation/screens/home_screen/robot_screen.dart';
 import 'package:food_recipes/presentation/widgets/food_widget/custom_app_bar.dart';
 import 'package:food_recipes/presentation/widgets/food_widget/fetch_cuisine_carousel_slider.dart';
 import 'package:food_recipes/presentation/widgets/food_widget/fetch_image_carousel_slider.dart';
@@ -17,23 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // SpoonacularApi.getFood();
-    // SpoonacularApi.getGeneratedDish(dish: ['tomato', 'onion', 'garlic']);
-  }
-
-  final _notchBottomBarController = NotchBottomBarController();
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _notchBottomBarController.dispose();
-  }
-
   bool isAppBarExpanded = true;
   @override
   Widget build(BuildContext context) {
@@ -68,6 +50,63 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 5,
                 ),
+
+                const OptionNames(
+                  name: "Breakfast Under 20 mins",
+                ),
+                //space
+                const SizedBox(
+                  height: 15,
+                ),
+                FetchTypeCarouselSliderCard(
+                  width: width,
+                  height: height,
+                  name: 'Breakfast',
+                ),
+
+                const OptionNames(
+                  name: "salad",
+                ),
+                //space
+                const SizedBox(
+                  height: 15,
+                ),
+                FetchTypeCarouselSliderCard(
+                  width: width,
+                  height: height,
+                  name: 'salad',
+                ),
+
+                const SizedBox(
+                  height: 10,
+                ),
+
+                const OptionNames(
+                  name: "Snack Food",
+                ),
+                //space
+                const SizedBox(
+                  height: 15,
+                ),
+                FetchTypeCarouselSliderCard(
+                  width: width,
+                  height: height,
+                  name: 'snack Food',
+                ),
+
+                const OptionNames(
+                  name: "Side Dish",
+                ),
+                //space
+                const SizedBox(
+                  height: 15,
+                ),
+                FetchTypeCarouselSliderCard(
+                  width: width,
+                  height: height,
+                  name: 'Side Dish',
+                ),
+
                 //vegetarian food
                 const OptionNames(
                   name: "Vegetarian",
@@ -100,49 +139,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   name: 'Gluten Free',
                 ),
 
-                const SizedBox(
-                  height: 10,
-                ),
-
-                const OptionNames(
-                  name: "Snack Food",
-                ),
-                //space
-                const SizedBox(
-                  height: 15,
-                ),
-                FetchTypeCarouselSliderCard(
-                  width: width,
-                  height: height,
-                  name: 'snack Food',
-                ),
-
-                const OptionNames(
-                  name: "breakfast",
-                ),
-                //space
-                const SizedBox(
-                  height: 15,
-                ),
-                FetchTypeCarouselSliderCard(
-                  width: width,
-                  height: height,
-                  name: 'breakfast',
-                ),
-
-                const OptionNames(
-                  name: "salad",
-                ),
-                //space
-                const SizedBox(
-                  height: 15,
-                ),
-                FetchTypeCarouselSliderCard(
-                  width: width,
-                  height: height,
-                  name: 'salad',
-                ),
-
                 const OptionNames(
                   name: "main course",
                 ),
@@ -168,13 +164,38 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: height,
                   name: 'dessert',
                 ),
-
-                //todo create the bottom navigation bar
+                const SizedBox(
+                  height: 80,
+                ),
               ],
             ),
           ),
         ],
       ),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 80.0, right: 10.0),
+        child: ClipOval(
+          child: Material(
+            // button color
+            child: InkWell(
+              splashColor: Colors.grey,
+              child: SizedBox(
+                  width: 56,
+                  height: 56,
+                  child: Image.asset(
+                    "assets/icons/chatbot.png",
+                    fit: BoxFit.cover,
+                  )),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ChatScreen()));
+              },
+            ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
     );
   }
 }

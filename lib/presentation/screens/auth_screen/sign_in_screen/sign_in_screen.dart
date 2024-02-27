@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_recipes/data/login_auth_api.dart';
+import 'package:food_recipes/presentation/screens/auth_screen/sign_in_screen/forgot_password_screen.dart';
 import 'package:food_recipes/presentation/screens/auth_screen/sign_in_screen/sign_in_bloc/sign_in_bloc.dart';
+import 'package:food_recipes/presentation/screens/home_screen/mainScreen.dart';
 import 'package:food_recipes/presentation/widgets/widget.dart';
-import 'package:go_router/go_router.dart';
 import 'package:food_recipes/core/core.dart';
+import '../sign_up_screen/sign_up_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -126,7 +127,11 @@ class SignInScreen extends StatelessWidget {
                                 padding: EdgeInsets.only(right: 4.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    context.go('/forgotPassword');
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ForgotPasswordScreen()));
                                   },
                                   child: Text(
                                     "Forgot Password?",
@@ -142,10 +147,13 @@ class SignInScreen extends StatelessWidget {
                               ),
                               BlocConsumer<SignInBloc, SignInState>(
                                 listener: (context, state) {
-                                  if(state.status == SignInStatus.success){
-                                    context.go('/home');
+                                  if (state.status == SignInStatus.success) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MainScreen()));
                                   }
-
                                 },
                                 builder: (context, state) {
                                   return Padding(
@@ -184,7 +192,11 @@ class SignInScreen extends StatelessWidget {
                                   child: CustomButton2(
                                     text: "Sign Up",
                                     onTap: () {
-                                      context.go('/signUp');
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SignUpScreen()));
                                     },
                                   )),
                             ],
@@ -204,11 +216,11 @@ class SignInScreen extends StatelessWidget {
               child: BlocConsumer<SignInBloc, SignInState>(
                 listener: (context, state) {
                   if (state.status == SignInStatus.success) {
-                    context.go('/home');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MainScreen()));
                   }
                 },
                 builder: (context, state) {
-
                   switch (state.status) {
                     case SignInStatus.loading:
                       return const Center(child: CircularProgressIndicator());
@@ -217,51 +229,52 @@ class SignInScreen extends StatelessWidget {
                         state.failure,
                         style: TextStyle(color: Colors.red),
                       );
-                      case SignInStatus.initial:
-                  return GestureDetector(
-                    onTap: () {
-                      context.read<SignInBloc>().add(GooglePressedEvent());
-                    },
-                    child: Container(
-                      height: height * 0.06,
-                      width: width * 0.75,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.pink, width: 2),
-                        backgroundBlendMode: BlendMode.softLight,
-                      ),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                'assets/images/google.png',
-                                height: 30,
-                                width: 30,
+                    case SignInStatus.initial:
+                      return GestureDetector(
+                        onTap: () {
+                          context.read<SignInBloc>().add(GooglePressedEvent());
+                        },
+                        child: Container(
+                          height: height * 0.06,
+                          width: width * 0.75,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.pink, width: 2),
+                            backgroundBlendMode: BlendMode.softLight,
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4.0),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/google.png',
+                                    height: 30,
+                                    width: 30,
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.01,
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      text: "Sign in with ",
+                                      style: TextStylesT.kSignInStyle2,
+                                      children: [
+                                        TextSpan(
+                                            text: "Google",
+                                            style: TextStylesT.kGoogle),
+                                      ],
+                                    ),
+                                    overflow: TextOverflow.clip,
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: width * 0.01,
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: "Sign in with ",
-                                  style: TextStylesT.kSignInStyle2,
-                                  children: [
-                                    TextSpan(
-                                        text: "Google",
-                                        style: TextStylesT.kGoogle),
-                                  ],
-                                ),
-                                overflow: TextOverflow.clip,
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  );
+                      );
                     case SignInStatus.success:
                       return const SizedBox();
                   }

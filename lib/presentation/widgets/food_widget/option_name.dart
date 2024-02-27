@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:food_recipes/data/spoonacular_API.dart';
 import 'package:food_recipes/presentation/screens/home_screen/cuisine_screen/cuisine.dart';
@@ -15,15 +14,20 @@ class OptionNames extends StatelessWidget {
         children: [
           Text(
             name,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
           ),
           TextButton(
               onPressed: () {
-                SpoonacularApi.getFoodData(name: name).then((value) => Navigator.push(context, MaterialPageRoute(builder: (context)=>IndianScreen(foodUser: value.results!))));
+                SpoonacularApi.getFoodData(name: name).then((value) =>
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CuisineScreen(foodUser: value.results!,cuisineName: "Breakfast Under 20 min",))));
               },
               child: const Text(
                 "View All",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
               )),
         ],
       ),

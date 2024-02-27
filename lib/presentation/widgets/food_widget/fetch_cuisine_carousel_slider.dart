@@ -1,7 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_recipes/data/spoonacular_API.dart';
 import 'package:food_recipes/presentation/screens/home_screen/cuisine_screen/cuisine.dart';
+
+import '../../screens/home_screen/cuisine_screen/cuisine_bloc/cuisine_bloc.dart';
 
 class FetchCuisineCarouselSliderCard extends StatelessWidget {
   const FetchCuisineCarouselSliderCard({
@@ -15,158 +18,136 @@ class FetchCuisineCarouselSliderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      items: [
-        CuisineContainer(
-          height: height,
-          width: width,
-          text: "Indian",
-          onTap: () {
-            SpoonacularApi.getFoodData(cuisine: 'indian').then((value) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => IndianScreen(
-                    foodUser: value.results!,
-                  ),
-                ),
-              );
-            });
-          },
-        ),
-        CuisineContainer(
-            height: height,
-            width: width,
-            text: "French",
-            onTap: () {
-              SpoonacularApi.getFoodData(cuisine: 'French').then((value) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FrenchScreen(
-                      foodUser: value.results!,
-                    ),
-                  ),
-                );
-              });
-            }),
-        CuisineContainer(
-            height: height, width: width, text: "Asian", onTap: () {
-          SpoonacularApi.getFoodData(cuisine: 'Asian').then((value) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AsianScreen(
-                  foodUser: value.results!,
-                ),
+    return BlocConsumer<CuisineBloc, CuisineState>(
+      listener: (context, state) {
+        if (state.status == CuisineStatus.failure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Failed to fetch data')),
+          );
+        } else if (state.status == CuisineStatus.success) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Data fetched successfully')),
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CuisineScreen(
+                foodUser: state.cuisine,
+                cuisineName: state.cuisineName,
               ),
-            );
-          });
-        }),
-        CuisineContainer(
-            height: height, width: width, text: "German", onTap: () {
-          SpoonacularApi.getFoodData(cuisine: 'German').then((value) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => GermanScreen(
-                  foodUser: value.results!,
-                ),
-              ),
-            );
-          });
-        }),
-        CuisineContainer(
-            height: height, width: width, text: "Mexican", onTap: () {
-          SpoonacularApi.getFoodData(cuisine: 'Mexican').then((value) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MexicanScreen(
-                  foodUser: value.results!,
-                ),
-              ),
-            );
-          });
-        }),
-        CuisineContainer(
-            height: height, width: width, text: "Caribbean", onTap: () {
-          SpoonacularApi.getFoodData(cuisine: 'Caribbean').then((value) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CaribbeanScreen(
-                  foodUser: value.results!,
-                ),
-              ),
-            );
-          });
-        }),
-        CuisineContainer(
-            height: height, width: width, text: "Italian", onTap: () {
-          SpoonacularApi.getFoodData(cuisine: 'Italian').then((value) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ItalianScreen(
-                  foodUser: value.results!,
-                ),
-              ),
-            );
-          });
-        }),
-        CuisineContainer(
-            height: height, width: width, text: "Korean", onTap: () {
-          SpoonacularApi.getFoodData(cuisine: 'Korean').then((value) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => KoreanScreen(
-                  foodUser: value.results!,
-                ),
-              ),
-            );
-          });
-        }),
-        CuisineContainer(
-            height: height, width: width, text: "European", onTap: () {
-          SpoonacularApi.getFoodData(cuisine: 'European').then((value) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => EuropeanScreen(
-                  foodUser: value.results!,
-                ),
-              ),
-            );
-          });
-        }),
-        CuisineContainer(
-            height: height, width: width, text: "Japanese", onTap: () {
-          SpoonacularApi.getFoodData(cuisine: 'Japanese').then((value) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => JapaneseScreen(
-                  foodUser: value.results!,
-                ),
-              ),
-            );
-          });
-        }),
-      ],
-      options: CarouselOptions(
-        height: height * 0.06,
-        viewportFraction: 0.4,
-        enableInfiniteScroll: true,
-        autoPlay: true,
-        autoPlayInterval: Duration(seconds: 3),
-        autoPlayAnimationDuration: Duration(milliseconds: 800),
-        autoPlayCurve: Curves.fastOutSlowIn,
-        enlargeCenterPage: true,
-        enlargeFactor: 0.3,
-        scrollDirection: Axis.horizontal,
-      ),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        return CarouselSlider(
+          items: [
+            CuisineContainer(
+              height: height,
+              width: width,
+              text: "Indian",
+              onTap: () {
+                context
+                    .read<CuisineBloc>()
+                    .add(FetchCuisineEvent(cuisine: 'Indian'));
+              },
+            ),
+            CuisineContainer(
+                height: height,
+                width: width,
+                text: "French",
+                onTap: () {
+                  context
+                      .read<CuisineBloc>()
+                      .add(FetchCuisineEvent(cuisine: 'French'));
+                }),
+            CuisineContainer(
+                height: height,
+                width: width,
+                text: "Asian",
+                onTap: () {
+                  context
+                      .read<CuisineBloc>()
+                      .add(FetchCuisineEvent(cuisine: 'Asian'));
+                }),
+            CuisineContainer(
+                height: height,
+                width: width,
+                text: "German",
+                onTap: () {
+                  context
+                      .read<CuisineBloc>()
+                      .add(FetchCuisineEvent(cuisine: 'German'));
+                }),
+            CuisineContainer(
+                height: height,
+                width: width,
+                text: "Mexican",
+                onTap: () {
+                  context
+                      .read<CuisineBloc>()
+                      .add(FetchCuisineEvent(cuisine: 'Mexican'));
+                }),
+            CuisineContainer(
+                height: height,
+                width: width,
+                text: "Caribbean",
+                onTap: () {
+                  context
+                      .read<CuisineBloc>()
+                      .add(FetchCuisineEvent(cuisine: 'Caribbean'));
+                }),
+            CuisineContainer(
+                height: height,
+                width: width,
+                text: "Italian",
+                onTap: () {
+                  context
+                      .read<CuisineBloc>()
+                      .add(FetchCuisineEvent(cuisine: 'Italian'));
+                }),
+            CuisineContainer(
+                height: height,
+                width: width,
+                text: "Korean",
+                onTap: () {
+                  context
+                      .read<CuisineBloc>()
+                      .add(FetchCuisineEvent(cuisine: 'Korean'));
+                }),
+            CuisineContainer(
+                height: height,
+                width: width,
+                text: "European",
+                onTap: () {
+                  context
+                      .read<CuisineBloc>()
+                      .add(FetchCuisineEvent(cuisine: 'European'));
+                }),
+            CuisineContainer(
+                height: height,
+                width: width,
+                text: "Japanese",
+                onTap: () {
+                  context
+                      .read<CuisineBloc>()
+                      .add(FetchCuisineEvent(cuisine: 'Japanese'));
+                }),
+          ],
+          options: CarouselOptions(
+            height: height * 0.06,
+            viewportFraction: 0.4,
+            enableInfiniteScroll: true,
+            autoPlay: true,
+            autoPlayInterval: Duration(seconds: 3),
+            autoPlayAnimationDuration: Duration(milliseconds: 800),
+            autoPlayCurve: Curves.fastOutSlowIn,
+            enlargeCenterPage: true,
+            enlargeFactor: 0.3,
+            scrollDirection: Axis.horizontal,
+          ),
+        );
+      },
     );
   }
 }

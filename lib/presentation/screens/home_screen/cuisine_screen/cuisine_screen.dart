@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipes/data/spoonacular_API.dart';
-import 'package:food_recipes/presentation/screens/home_screen/cuisine_screen/indian_screen.dart';
 import 'package:food_recipes/presentation/widgets/food_widget/dish_container.dart';
-
 import '../../../../model/FoodModel.dart';
 
-class KoreanScreen extends StatelessWidget {
-  const KoreanScreen({Key? key, required this.foodUser});
+class CuisineScreen extends StatelessWidget {
+  const CuisineScreen({super.key, required this.foodUser, required this.cuisineName});
+
   final List<Results> foodUser;
+  final String cuisineName ;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Korean'),
+        backgroundColor: const Color(0xffffe0a1),
+        title: Text(
+          cuisineName,
+          style: const TextStyle(color: Colors.black),
+        ),
       ),
       body: Container(
-        decoration: BoxDecoration(color: Color(0xffffecc7)),
+        decoration: const BoxDecoration(color: Color(0xffffecc7)),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: GridView.builder(
@@ -34,3 +37,5 @@ class KoreanScreen extends StatelessWidget {
     );
   }
 }
+
+

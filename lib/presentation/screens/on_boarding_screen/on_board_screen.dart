@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_recipes/core/contants/contants.dart';
 import 'package:food_recipes/presentation/routes/routeNames.dart';
+import 'package:food_recipes/presentation/screens/auth_screen/sign_in_screen/sign_in_screen.dart';
 import 'package:food_recipes/presentation/screens/on_boarding_screen/bloc/on_board_screen_bloc.dart';
 import 'package:food_recipes/presentation/widgets/widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
+import '../auth_screen/sign_up_screen/sign_up_screen.dart';
 
 class OnBoardScreen extends StatelessWidget {
   OnBoardScreen({super.key});
@@ -18,12 +20,9 @@ class OnBoardScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-
           //background image
           SizedBox(
-            height: MediaQuery
-                .sizeOf(context)
-                .height,
+            height: MediaQuery.sizeOf(context).height,
             child: Image.asset(
               'assets/images/bg6.jpg',
               fit: BoxFit.fitHeight,
@@ -58,13 +57,13 @@ class OnBoardScreen extends StatelessWidget {
                 lottie: Lottie.asset('assets/jsons/time_track.json'),
                 text: "Track Your Health",
                 subText:
-                "With amazing inbuilt tool you can make your own meal plan",
+                    "With amazing inbuilt tool you can make your own meal plan",
               ),
               Page1(
                 lottie: Lottie.asset('assets/jsons/thinking.json'),
                 text: "Eat Healthy",
                 subText:
-                "Maintaining good health should be the primary focus of everyone",
+                    "Maintaining good health should be the primary focus of everyone",
               ),
             ],
           ),
@@ -78,18 +77,17 @@ class OnBoardScreen extends StatelessWidget {
             left: 32,
             child: BlocConsumer<OnBoardScreenBloc, OnBoardScreenState>(
               listener: (context, state) {
-                if(state.screens == '/signUp'){
-                  context.go('/signUp');
+                if (state.screens == '/signUp') {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const SignUpScreen()));
                 }
               },
               builder: (context, state) {
                 return GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     context.read<OnBoardScreenBloc>().add(NavigationToSignUp());
                   },
-                  child: UtilButton(
-                      text: "Get Started"
-                  ),
+                  child: const UtilButton(text: "Get Started"),
                 );
               },
             ),
@@ -102,7 +100,8 @@ class OnBoardScreen extends StatelessWidget {
             child: BlocListener<OnBoardScreenBloc, OnBoardScreenState>(
               listener: (context, state) {
                 if (state.screens == '/signIn') {
-                  context.goNamed('signIn');
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const SignInScreen()));
                 }
               },
               child: GestureDetector(

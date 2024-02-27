@@ -18,13 +18,18 @@ class FoodImage extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: CachedNetworkImage(
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
           width: width,
           height: height,
           imageUrl: image,
           progressIndicatorBuilder: (BuildContext, String, DownloadProgress) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return  Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.white
+              ),
+              height: height*0.23,
+              width: width,
             );
           }),
     );
